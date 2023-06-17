@@ -26,6 +26,17 @@ function Form(){
     })
     getTasks()
   }
+  const deleteTasks = async(id)=>{
+    //event.preventDefault();
+    console.log(id)
+    await fetch(`http://localhost:4000/${id}`, {
+      method: 'delete'
+    })
+    getTasks()
+  }
+  const editTasks = async(id)=>{
+    
+  }
   useEffect(()=>{getTasks()}, [])
     return(
         <>
@@ -68,7 +79,7 @@ function Form(){
                         edit
                         </span>
                   </button>
-                  <button className="btn-action delete">
+                  <button className="btn-action delete"  onClick={()=>deleteTasks(task.id)}>
                     <span className="material-symbols-outlined">
                         delete
                         </span>
