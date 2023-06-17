@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Urbanist', sans-serif;
+}
+*:focus{
+  outline: none;
+}
+form{
+  width: 75%;
+  margin: auto;
+  height: 60px;
+  display: flex;
+  border: 1px solid;
+  align-items: center;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0, 0.1);
+  margin-bottom: 6%;
+  margin-top: 4%;
+}
+.a{
+  height: 100%;
+  
+}
+main{
+  width: 100%;
+}
+.novaTarefa{
+  flex: 80%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+.btn{
+  flex: 20%;
+  background-color: rgb(12, 145, 217);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+table{
+  border-collapse: collapse;
+  width: 75%;
+  margin: auto;
+}
+td, th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.edit{
+  background: orange;
+  cursor: pointer;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.delete{
+  background: red;
+  cursor: pointer;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
