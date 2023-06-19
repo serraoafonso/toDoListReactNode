@@ -7,15 +7,19 @@ function Form(){
   const [tasks, setTasks] = useState([])
   const [currentTask, setCurrentTask] = useState('') 
   const [status ,setStatus] = useState('')
+  const [edit, setEdit] = useState(false)
+  const [currentEdit, setCurrentEdit] = useState('')
+  const [idTask, setIdTask] = useState('')
+  const [idEditar, setIdEditar] = useState()
   async function getTasks(){
     const response = await fetch('http://localhost:4000');
     const task = await response.json()
     setTasks(task)
     console.log(tasks, 'tasks')    
   }
-
   const postTasks= async(event)=>{
     event.preventDefault()
+    setCurrentTask('')
     const bodyTask = {
       task: currentTask
     }
@@ -34,16 +38,51 @@ function Form(){
     })
     getTasks()
   }
-  const editTasks = async(id)=>{
+  function poeEdit(){
+     return(
+      <form onSubmit={acabaEdit}>
+      <input type="text" className='inputEdit' onChange={(e)=>setCurrentEdit(e.target.value)} value={currentEdit}/>
+      </form>
+     )
+  }
+  
+  const acabaEdit = async () => {
     
+    const bodyTask = {
+      task: currentEdit
+    };
+    await fetch(`http://localhost:4000/${idTask}`, {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyTask)
+    });
+    setCurrentEdit('');
+    getTasks();
+  };
+  
+  function preparaEdit(task){
+    setIdTask(task.id)
+    setCurrentEdit(task.task)
+    setEdit(true)
+    setIdEditar(task.id)
+  }
+  async function changeStatus(status, id){
+    const body = {
+      status: status
+    }
+    await fetch(`http://localhost:4000/status/${id}`,{
+      method: 'put',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    })
   }
   useEffect(()=>{getTasks()}, [])
     return(
         <>
         <main>
-          <form>
-            <input type="text" placeholder='Adicone uma nova tarefa' className='novaTarefa a' onChange={((e)=>setCurrentTask(e.target.value))}/>
-            <button type="button"className='a btn' onClick={postTasks}>Enviar</button>
+          <form onSubmit={postTasks} className='form'>
+            <input type="text" placeholder='Adicone uma nova tarefa' className='novaTarefa a' onChange={((e)=>setCurrentTask(e.target.value))} value={currentTask}/>
+            <button type="submit"className='a btn'>Enviar</button>
           </form>
            
         <table>
@@ -59,9 +98,10 @@ function Form(){
             {tasks.map((task,i)=>{
             return(
             <tr key={i}>
-              <td>{task.task}</td>
+              <td>{ 
+              (edit && task.id == idEditar) ? poeEdit() : task.task}</td>
               <td>
-                <select>
+                <select onChange={(e)=>changeStatus(e.target.value, task.id)}>
                   {
                   task.status == 'pendente' ? 
                     
@@ -74,7 +114,7 @@ function Form(){
               </td>
               <td>{task.date.substring(0,10) + ' '+task.date.substring(11, 16) /*+ task.date.substring(12, 16).substring(0,10)*/}</td>
               <td className='acoes'>
-              <button className="btn-action edit">
+              <button className="btn-action edit" onClick={()=>preparaEdit(task)}>{/*chamar sempre com arrow function*/} 
                     <span className="material-symbols-outlined">
                         edit
                         </span>

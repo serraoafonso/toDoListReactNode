@@ -22,9 +22,8 @@ const postTasks = async(req, res)=>{
 const updateTasks = async(req, res)=>{
   const {id} = req.params;
   const task = req.body.task;
-  const status = req.body.status;
   try{
-    await taskModel.updateTasks(task, status, id);
+    await taskModel.updateTasks(task, id);
     return res.status(200).json('Task updated')
   }catch(err){
     res.status(404).json('Erro')
@@ -41,4 +40,15 @@ const deleteTasks = async(req, res)=>{
     }
 }
 
-module.exports = {getTasks, postTasks, updateTasks, deleteTasks}
+const changeStatus = async(req, res)=>{
+    const id = req.params.id;
+    const {status} = req.body;
+    try{
+        await taskModel.changeStatus(status, id)
+        return res.status(200).json('Status updated')
+    }catch(err){
+        res.status(404).json('Erro')
+    }
+}
+
+module.exports = {getTasks, postTasks, updateTasks, deleteTasks, changeStatus}

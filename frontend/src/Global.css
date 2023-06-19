@@ -9,7 +9,7 @@
 *:focus{
   outline: none;
 }
-form{
+.form{
   width: 75%;
   margin: auto;
   height: 60px;
@@ -58,6 +58,9 @@ td, th {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+td{
+  position: relative;
+}
 .edit{
   background: orange;
   cursor: pointer;
@@ -69,4 +72,13 @@ tr:nth-child(even) {
   cursor: pointer;
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
+}
+.inputEdit{
+  border: 1px solid lightgrey;
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  width: 80%;
+  height: 60%;
+  border-radius: 10px;
 }
